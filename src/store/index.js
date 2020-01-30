@@ -9,7 +9,8 @@ export default new Vuex.Store({
     leadDetails: [],
     marketingAgentDetails: [],
     listOfOpenTickets:[],
-    serviceAgentDetails:[]
+    serviceAgentDetails:[],
+    leadList:[]
 
 
   },
@@ -28,6 +29,10 @@ export default new Vuex.Store({
     },
     SET_SERVICE_AGENT(state,value){
       state.serviceAgentDetails=value;
+    },
+    SET_LEAD_LIST(state,value){
+      state.leadList=value;
+      //window.console.log(state.leadList)
     }
   },
   actions: {
@@ -77,6 +82,13 @@ export default new Vuex.Store({
         let x=localStorage.getItem("ticketId");
         let y=localStorage.getItem("supportAgentId")
         axios.post("http://172.16.20.14:8085/api/assignsa/"+x+"/"+y)
+    },
+    getLeadForMarketAgent({commit}={}){
+      window.console.log("getLeadForMarketAgent")
+      axios.get('http://172.16.20.14:8085/api/subcategory/1').then(
+        res => {
+          commit('SET_LEAD_LIST', res.data.ll)
+        }).catch(err=>window.log.console(err))
     }
   },
 
@@ -98,6 +110,9 @@ export default new Vuex.Store({
     },
     serviceAgents(state){
       return state.serviceAgentDetails;
+    },
+    leadList1(state){
+      return state.leadList;
     }
   }
 })
