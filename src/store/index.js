@@ -36,7 +36,7 @@ export default new Vuex.Store({
         res => {
           commit('SET_LEAD', res.data.ll)
         },
-        localStorage.removeItem("id")
+        //localStorage.removeItem("id")
       )
     },
     sendLid({commit}={}){
@@ -44,8 +44,12 @@ export default new Vuex.Store({
         res=>{
           commit('SET_MARKETING_AGENT',res.data.ll)
         },
-        localStorage.removeItem('lid')
+        //localStorage.removeItem('lid')
       )
+    },
+    send(){
+      axios.post("http://172.16.20.14:8085/api/submit/"+localStorage.getItem("id")+"/"+localStorage.getItem("lid")
+      +"/"+localStorage.getItem("mid"))
     }
   },
 

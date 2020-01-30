@@ -18,15 +18,16 @@
         </select>
       </div>
       <div class="marketingAgentDiv">
-        <select>
+        <select @change="setMaId($event)">
             <option
             v-for="m in marketagents"
             v-bind:key="m.marketingAgentid"
-            v-bind:value="m.marketingAgentName"
+            v-bind:value="m.marketingAgentid"
           >{{ m.marketingAgentName}}</option>
         </select>
       </div>
     </div>
+    <button @click="passToDb()" value="Submit">SUBMIT</button>
   </div>
 </template>
 
@@ -50,6 +51,13 @@ export default {
       const data1 = event.target.value;
       localStorage.setItem("lid", data1);
       this.$store.dispatch("sendLid");
+    },
+    setMaId(event){
+      const data2=event.target.value;
+      localStorage.setItem("mid",data2);
+    },
+    passToDb(){
+        this.$store.dispatch("send");
     }
   },
   computed: {

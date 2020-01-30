@@ -1,71 +1,64 @@
 <template>
   <div id="main">
-
     <div id="nav">
-        <ul>
-          <li>
-            <a href="#">Assign marketing agents</a>
-          </li>
-          <li>
-            <a href="#">Assign tickets</a>
-          </li>
-          <li>
-            <a href="#">Add service agent</a>
-          </li>
-          <li>
-            <a href="#">Add marketing agent</a>
-          </li>
-          <li>
-            <a href="#">Logout</a>
-          </li>
-          
-    <div>
-       <!-- <categories v-for = "category in categoriesList"  key = "category.categoryId" : item="category"></categories>  -->
-      <!-- <categories props></categories> -->
+      <ul>
+        <li id="assignma">
+          <a href="#" id="1" v-on:click="select($event)">Assign marketing agents</a>
+        </li>
+        <li>
+          <a href="#" id="2" v-on:click="select($event)">Assign tickets</a>
+        </li>
+        <li>
+          <a href="#" id="3" v-on:click="select($event)">Add service agent</a>
+        </li>
+        <li>
+          <a href="#" id="4" v-on:click="select($event)">Add marketing agent</a>
+        </li>
+        <li>
+          <a href="#">Logout</a>
+        </li>
+
+        <div></div>
+      </ul>
     </div>
-    </ul>
-    </div>
-    <!-- {{ categories }} -->
-              <!-- <categories1 v-for="category in categoriesList"  :key="category.categoryId" :item="category"></categories1> -->
-<categories1/>
+    <!-- <categories1 />
+    <Tickets /> -->
+    <component v-bind:is="component" /> 
   </div>
 </template>
 
 
  <script>
- import categories1 from "@/components/categories.vue";
+import categories1 from "@/components/categories.vue";
+import Tickets from "@/components/Tickets.vue";
+//import func from '../../vue-temp/vue-editor-bridge';
 // import {mapGetters} from 'vuex'
 export default {
   name: "categories",
   components: {
-     categories1
+    categories1,
+    Tickets
   },
-  methods: {
-    CategoryDetailsRecieved: function() {
-        window.console.log(this.$store.getters["getAllCategoryDetails"]);
-        this.categoriesList=this.$store.getters["getAllCategoryDetails"];
-        // return this.$store.state.categoryDetails
+  data(){
+    return{
+      component:categories1
     }
   },
-  // computed: {
-  //   ...mapGetters(['categories'])
-  // },
-  created() {
-        this.$store.dispatch("getCategoryDetails",{
-          success:this.CategoryDetailsRecieved,
-            }
-);
-
+  methods: {
+      select: function(event){
+          // window.console.log(event.target.id)
+          if(event.target.id === "1"){
+            this.component=categories1
+          }
+          else if(event.target.id==="2"){
+            this.component=Tickets
+          }
+      }
   },
-  data: function() {
-    return {
-      categoriesList: [
-        {
-          categoryId: 1,
-          categoryName: "fhjbdfhv"
-        }
-      ]
-    };
+  created() {
+    this.$store.dispatch("getCategoryDetails", {
+      success: this.CategoryDetailsRecieved
+    });
   }
 };
 </script>
@@ -99,7 +92,7 @@ ul li:hover ul {
   display: block;
 }
 ul li ul {
-  position:relative;
+  position: relative;
   width: 200px;
   display: none;
 }
@@ -112,11 +105,6 @@ ul li ul li a {
 }
 ul li ul li:hover {
   background: #666;
-
 }
-
-
-
-
 </style>
 
