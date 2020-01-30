@@ -8,7 +8,8 @@ export default new Vuex.Store({
     categoryDetails: [],
     leadDetails: [],
     marketingAgentDetails: [],
-    listOfOpenTickets:[]
+    listOfOpenTickets:[],
+    serviceAgentDetails:[]
 
 
   },
@@ -24,6 +25,9 @@ export default new Vuex.Store({
     },
     SET_OPEN_TICKETS(state,value){
       state.listOfOpenTickets=value;
+    },
+    SET_SERVICE_AGENT(state,value){
+      state.serviceAgentDetails=value;
     }
   },
   actions: {
@@ -61,6 +65,18 @@ export default new Vuex.Store({
             commit("SET_OPEN_TICKETS",res.data.ll)
         }
       )
+    },
+    getSupportAgents({commit}={}){
+      axios.get("http://172.16.20.14:8085/api/getsuportagents").then(
+        res=>{
+            commit("SET_SERVICE_AGENT",res.data.ll)
+        }
+      )
+    },
+    assignSupportAgents(){
+        let x=localStorage.getItem("ticketId");
+        let y=localStorage.getItem("supportAgentId")
+        axios.post("http://172.16.20.14:8085/api/assignsa/"+x+"/"+y)
     }
   },
 
@@ -79,6 +95,9 @@ export default new Vuex.Store({
     },
     openTickets(state){
       return state.listOfOpenTickets;
+    },
+    serviceAgents(state){
+      return state.serviceAgentDetails;
     }
   }
 })
