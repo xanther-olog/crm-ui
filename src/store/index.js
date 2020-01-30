@@ -38,6 +38,14 @@ export default new Vuex.Store({
         },
         localStorage.removeItem("id")
       )
+    },
+    sendLid({commit}={}){
+      axios.get("http://172.16.20.14:8085/api/market/"+localStorage.getItem('lid')).then(
+        res=>{
+          commit('SET_MARKETING_AGENT',res.data.ll)
+        },
+        localStorage.removeItem('lid')
+      )
     }
   },
 
@@ -50,6 +58,9 @@ export default new Vuex.Store({
     },
     leads(state){
       return state.leadDetails;
+    },
+    marketagents(state){
+      return state.marketingAgentDetails;
     }
   }
 })

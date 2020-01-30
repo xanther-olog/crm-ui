@@ -2,15 +2,31 @@
   <div class="mainDiv">
     <div class="categoryDiv">
       <select @change="onchange($event)">
-      <option v-for="cat in categories" v-bind:key="cat.categoryId" v-bind:value="cat.categoryId">{{cat.categoryName}}</option>
-    </select>
-    <div class="leadsDiv">
-      <select>
-        <option v-for="l in leads" v-bind:key="l.subCategoryId" v-bind:value="l.subCategoryId">{{ l.subCategoryDetails}} </option>
+        <option
+          v-for="cat in categories"
+          v-bind:key="cat.categoryId"
+          v-bind:value="cat.categoryId"
+        >{{cat.categoryName}}</option>
       </select>
+      <div class="leadsDiv">
+        <select @change="getMA($event)">
+          <option
+            v-for="l in leads"
+            v-bind:key="l.subCategoryId"
+            v-bind:value="l.subCategoryId"
+          >{{ l.subCategoryDetails}}</option>
+        </select>
+      </div>
+      <div class="marketingAgentDiv">
+        <select>
+            <option
+            v-for="m in marketagents"
+            v-bind:key="m.marketingAgentid"
+            v-bind:value="m.marketingAgentName"
+          >{{ m.marketingAgentName}}</option>
+        </select>
+      </div>
     </div>
-    </div>
-    
   </div>
 </template>
 
@@ -27,16 +43,19 @@ export default {
   methods: {
     onchange(event) {
       const data = event.target.value;
-      // this.$store.dispatch("sendId", {
-      //   params: data
-      // });
-      localStorage.setItem('id',data)
+      localStorage.setItem("id", data);
       this.$store.dispatch("sendId");
+    },
+    getMA(event) {
+      const data1 = event.target.value;
+      localStorage.setItem("lid", data1);
+      this.$store.dispatch("sendLid");
     }
   },
   computed: {
     ...mapGetters(["categories"]),
-    ...mapGetters(["leads"])
+    ...mapGetters(["leads"]),
+    ...mapGetters(["marketagents"])
   }
 };
 </script>
