@@ -31,13 +31,15 @@
  <script>
 import categories1 from "@/components/categories.vue";
 import Tickets from "@/components/Tickets.vue";
+import addagent1 from "@/components/addagent.vue";
+import addmarketingagent1 from "@/components/addmarketingagent.vue";
 //import func from '../../vue-temp/vue-editor-bridge';
 // import {mapGetters} from 'vuex'
 export default {
   name: "categories",
   components: {
     categories1,
-    Tickets
+    Tickets,addagent1,addmarketingagent1
   },
   data() {
     return {
@@ -51,6 +53,11 @@ export default {
         this.component = categories1;
       } else if (event.target.id === "2") {
         this.component = Tickets;
+      }else if(event.target.id ==="3"){
+        this.component=addagent1;
+      }
+      else if(event.target.id ==="4"){
+        this.component=addmarketingagent1;
       }
     }
   },
