@@ -22,8 +22,8 @@
       </ul>
     </div>
     <!-- <categories1 />
-    <Tickets /> -->
-    <component v-bind:is="component" /> 
+    <Tickets />-->
+    <component v-bind:is="component" />
   </div>
 </template>
 
@@ -39,21 +39,20 @@ export default {
     categories1,
     Tickets
   },
-  data(){
-    return{
-      component:categories1
-    }
+  data() {
+    return {
+      component: categories1
+    };
   },
   methods: {
-      select: function(event){
-          // window.console.log(event.target.id)
-          if(event.target.id === "1"){
-            this.component=categories1
-          }
-          else if(event.target.id==="2"){
-            this.component=Tickets
-          }
+    select: function(event) {
+      // window.console.log(event.target.id)
+      if (event.target.id === "1") {
+        this.component = categories1;
+      } else if (event.target.id === "2") {
+        this.component = Tickets;
       }
+    }
   },
   created() {
     this.$store.dispatch("getCategoryDetails", {

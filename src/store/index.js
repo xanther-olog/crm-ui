@@ -7,7 +7,8 @@ export default new Vuex.Store({
   state: {
     categoryDetails: [],
     leadDetails: [],
-    marketingAgentDetails: []
+    marketingAgentDetails: [],
+    listOfOpenTickets:[]
 
 
   },
@@ -21,6 +22,9 @@ export default new Vuex.Store({
     SET_MARKETING_AGENT(state, value) {
       state.marketingAgentDetails = value;
     },
+    SET_OPEN_TICKETS(state,value){
+      state.listOfOpenTickets=value;
+    }
   },
   actions: {
 
@@ -50,6 +54,13 @@ export default new Vuex.Store({
     send(){
       axios.post("http://172.16.20.14:8085/api/submit/"+localStorage.getItem("id")+"/"+localStorage.getItem("lid")
       +"/"+localStorage.getItem("mid"))
+    },
+    getOpenTickets({commit}={}){
+      axios.get("http://172.16.20.14:8085/api/getopentickets").then(
+        res=>{   
+            commit("SET_OPEN_TICKETS",res.data.ll)
+        }
+      )
     }
   },
 
@@ -65,6 +76,9 @@ export default new Vuex.Store({
     },
     marketagents(state){
       return state.marketingAgentDetails;
+    },
+    openTickets(state){
+      return state.listOfOpenTickets;
     }
   }
 })
