@@ -20,20 +20,26 @@
         >{{l.subCategoryDetails}}</option>
       </select>
     </div>
+    <div class="leadDetails">
+      <h3>Ticket ID: leadList1</h3>
+      <h3>Ticket source:</h3>
+      <h3>Post ID:</h3>
+      <h3>Post Image/Video:</h3>
+      <h3>Post Description:</h3>
+      <h3>Count of Dislikes:</h3>
+    </div>
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
 export default {
-    computed: {
-    ...mapGetters(["leadList1"]),
+  computed: {
+    ...mapGetters(["leadList1"])
   },
-  created(){
-      this.$store.dispatch("getLeadForMarketAgent", {
-    });
+  created() {
+    this.$store.dispatch("getLeadForMarketAgent", {});
   }
-
 };
 </script>
 

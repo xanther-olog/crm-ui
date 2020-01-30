@@ -11,8 +11,6 @@ export default new Vuex.Store({
     listOfOpenTickets:[],
     serviceAgentDetails:[],
     leadList:[]
-
-
   },
   mutations: {
     SET_CATEGORY(state, value) {
