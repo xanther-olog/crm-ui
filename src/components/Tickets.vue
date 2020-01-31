@@ -7,23 +7,23 @@
           <option value selected disabled>Choose here</option>
           <option
             v-for="t in openTickets"
-            v-bind:key="t.ticketid"
-            v-bind:value="t.ticketid"
-          >{{t.ticketsource}}</option>
+            v-bind:key="t.ticketId"
+            v-bind:value="t.ticketId"
+          >{{t.postDesc}}</option>
         </select>
       </div>
     </div>
     <div class="supportAgents">
       <!-- <SupportAgents v-on:accept-support-agent="$emit('meaow',SupportAgents.saId)"/> -->
       <p align="left">ID Name</p>
-      <div v-for="s in serviceAgents" v-bind:key="s.saId" class="supportagent">
+      <div v-for="s in serviceAgents" v-bind:key="s.supportAgentId" class="supportagent">
         <p align="left">
-          {{ s.saId }}&nbsp;{{ s.saName }}
+          {{ s.supportAgentId }}&nbsp;{{ s.supportAgentName }}
           <!-- <button
           @click="$emit('accept-support-agent',s.saId)"
           class="accept"
           >✓</button>-->
-          <button class="accept" @click="assignSupportAgent(s.saId)">✓</button>
+          <button class="accept" @click="assignSupportAgent(s.supportAgentId)">✓</button>
         </p>
       </div>
     </div>

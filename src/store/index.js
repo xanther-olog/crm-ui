@@ -40,50 +40,60 @@ export default new Vuex.Store({
   actions: {
 
     getCategoryDetails({ commit }) {
-      axios.get(' http://172.16.20.14:8085/api/category').then(
+      axios.get('http://10.177.68.205:8090/marketingAgent/getCategoryList').then(
         res => {
-          commit('SET_CATEGORY', res.data.ll)
+          commit('SET_CATEGORY', res.data)
         }
       )
     },
     sendId({ commit } = {}) {
-      axios.get('http://172.16.20.14:8085/api/subcategory/' + localStorage.getItem('id')).then(
+      axios.get('http://10.177.68.205:8090/marketingAgent/getLeadsByCategory/' + localStorage.getItem('id')).then(
         res => {
-          commit('SET_LEAD', res.data.ll)
+          commit('SET_LEAD', res.data)
         },
         //localStorage.removeItem("id")
       )
     },
     sendLid({ commit } = {}) {
-      axios.get("http://172.16.20.14:8085/api/market/" + localStorage.getItem('lid')).then(
+      axios.get("http://10.177.68.205:8090/marketingAgent/getMarketAgentByCategory/" + localStorage.getItem('id')).then(
         res => {
-          commit('SET_MARKETING_AGENT', res.data.ll)
+          commit('SET_MARKETING_AGENT', res.data)
         },
         //localStorage.removeItem('lid')
       )
     },
     send() {
-      axios.post("http://172.16.20.14:8085/api/submit/" + localStorage.getItem("id") + "/" + localStorage.getItem("lid")
-        + "/" + localStorage.getItem("mid"))
+      // axios.post("http://172.16.20.14:8085/api/submit/" + localStorage.getItem("id") + "/" + localStorage.getItem("lid")
+      //   + "/" + localStorage.getItem("mid"))
+      axios.post("http://10.177.68.205:8090/marketingAgent/assignMarketAgent",{
+          'marketingAgentId':localStorage.getItem("mid"),
+          'leadId':localStorage.getItem("lid")
+      })
     },
     getOpenTickets({ commit } = {}) {
-      axios.get("http://172.16.20.14:8085/api/getopentickets").then(
+      axios.get("http://10.177.68.205:8090/supportAgent/getTicketList").then(
         res => {
-          commit("SET_OPEN_TICKETS", res.data.ll)
+          commit("SET_OPEN_TICKETS", res.data)
         }
       )
     },
     getSupportAgents({ commit } = {}) {
-      axios.get("http://172.16.20.14:8085/api/getsuportagents").then(
+      axios.get("http://10.177.68.205:8090/supportAgent/getSAList").then(
         res => {
-          commit("SET_SERVICE_AGENT", res.data.ll)
+          commit("SET_SERVICE_AGENT", res.data)
         }
       )
     },
     assignSupportAgents() {
       let x = localStorage.getItem("ticketId");
       let y = localStorage.getItem("supportAgentId")
-      axios.post("http://172.16.20.14:8085/api/assignsa/" + x + "/" + y)
+      // eslint-disable-next-line no-console
+      //console.log(x+" "+y)
+      // 
+      axios.post("http://10.177.68.205:8090/supportAgent/assignTicket",{
+          'supportAgentId':y,
+          'ticketId':x
+      })
     },
     getLeadForMarketAgent({ commit } = {}) {
       window.console.log("getLeadForMarketAgent")

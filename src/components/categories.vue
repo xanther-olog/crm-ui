@@ -6,9 +6,9 @@
         <option value selected disabled>Choose here</option>
         <option
           v-for="cat in categories"
-          v-bind:key="cat.categoryId"
-          v-bind:value="cat.categoryId"
-        >{{cat.categoryName}}</option>
+          v-bind:key="cat"
+          v-bind:value="cat"
+        >{{cat}}</option>
       </select>
     </div>
       <div class="leadsDiv">
@@ -17,9 +17,9 @@
           <option value selected disabled>Choose here</option>
           <option
             v-for="l in leads"
-            v-bind:key="l.subCategoryId"
-            v-bind:value="l.subCategoryId"
-          >{{ l.subCategoryDetails}}</option>
+            v-bind:key="l.leadId"
+            v-bind:value="l.leadId"
+          >{{ l.leadName}}</option>
         </select>
       </div>
       <div class="marketingAgentDiv">
@@ -28,8 +28,8 @@
           <option value selected disabled>Choose here</option>
           <option
             v-for="m in marketagents"
-            v-bind:key="m.marketingAgentid"
-            v-bind:value="m.marketingAgentid"
+            v-bind:key="m.marketingAgentId"
+            v-bind:value="m.marketingAgentId"
           >{{ m.marketingAgentName}}</option>
         </select>
       </div>

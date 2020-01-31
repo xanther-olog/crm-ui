@@ -25,16 +25,23 @@
       <h3>Lead Name: {{ leadkasaaman.leadName }}</h3>
       <h3>Lead email: {{ leadkasaaman.leadEmail }}</h3>
       <h3>Post Image/Video:</h3>
-      <input type="file" @change="onFileSelected($event)" />
+      <input type="file" @change="onUploadImage($event)" />
       <button @click="onUpload">Upload</button>
       <h3>Post Description:</h3>
     </div>
   </div>
 </template>
 
+
+
 <script>
 import { mapGetters } from "vuex";
-import axios from "axios";
+// eslint-disable-next-line no-unused-vars
+import {fb,db} from '../firebase';
+// import firebase from '@firebase/app'
+// import 'firebase/firestore'
+// import 'firebase/firebase-auth'
+// import 'firebase/storage'
 export default {
   data() {
     return {
@@ -54,21 +61,29 @@ export default {
       localStorage.setItem("leadid", data);
       this.$store.dispatch("getLeadDetails");
     },
-    onFileSelected(event) {
-      // eslint-disable-next-line no-console
-      console.log(event);
-      this.selectedFile = event.target.files[0];
-    },
-    onUpload() {
-      const fd = new FormData();
-      fd.append("image", this.selectedFile, this.selectedFile.name);
-      axios.post("API", fd,{onUploadProgress:uploadEvent=>{
-        window.console.log("Upload Progress: "+Math.round(uploadEvent.loaded/uploadEvent.total * 100)+"%")
-      }}).then(res => {
-        // eslint-disable-next-line no-console
-        console.log(res)
-      });
-    }
+    // onFileSelected(event) {
+    //   // eslint-disable-next-line no-console
+    //   console.log(event);
+    //   this.selectedFile = event.target.files[0];
+    // },
+    // onUpload() {
+    //   const fd = new FormData();
+    //   fd.append("image", this.selectedFile, this.selectedFile.name);
+    //   axios.post("API", fd,{onUploadProgress:uploadEvent=>{
+    //     window.console.log("Upload Progress: "+Math.round(uploadEvent.loaded/uploadEvent.total * 100)+"%")
+    //   }}).then(res => {
+    //     // eslint-disable-next-line no-console
+    //     console.log(res)
+    //   });
+    // }
+      onUploadImage(event){
+          let file=event.target.files[0];
+          var storageRef=fb.storage().ref(file.name);
+          storageRef.put(file);
+
+
+
+      }
   }
 };
 </script>
