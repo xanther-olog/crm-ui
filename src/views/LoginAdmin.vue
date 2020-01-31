@@ -74,7 +74,7 @@ export default {
 
 <style scoped>
 #nav {
-  background-color: rgb(248, 58, 58);
+  background-color: rgb(183, 219, 250);
 }
 div a {
   text-decoration: none;

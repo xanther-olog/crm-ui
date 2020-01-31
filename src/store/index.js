@@ -40,14 +40,14 @@ export default new Vuex.Store({
   actions: {
 
     getCategoryDetails({ commit }) {
-      axios.get('http://10.177.68.205:8090/marketingAgent/getCategoryList').then(
+      axios.get('http://172.16.20.161:8090/marketingAgent/getCategoryList').then(
         res => {
           commit('SET_CATEGORY', res.data)
         }
       )
     },
     sendId({ commit } = {}) {
-      axios.get('http://10.177.68.205:8090/marketingAgent/getLeadsByCategory/' + localStorage.getItem('id')).then(
+      axios.get('http://172.16.20.161:8090/marketingAgent/getLeadsByCategory/' + localStorage.getItem('id')).then(
         res => {
           commit('SET_LEAD', res.data)
         },
@@ -55,7 +55,7 @@ export default new Vuex.Store({
       )
     },
     sendLid({ commit } = {}) {
-      axios.get("http://10.177.68.205:8090/marketingAgent/getMarketAgentByCategory/" + localStorage.getItem('id')).then(
+      axios.get("http://172.16.20.161:8090/marketingAgent/getMarketAgentByCategory/" + localStorage.getItem('id')).then(
         res => {
           commit('SET_MARKETING_AGENT', res.data)
         },
@@ -65,20 +65,20 @@ export default new Vuex.Store({
     send() {
       // axios.post("http://172.16.20.14:8085/api/submit/" + localStorage.getItem("id") + "/" + localStorage.getItem("lid")
       //   + "/" + localStorage.getItem("mid"))
-      axios.post("http://10.177.68.205:8090/marketingAgent/assignMarketAgent",{
+      axios.post("http://172.16.20.161:8090/marketingAgent/assignMarketAgent",{
           'marketingAgentId':localStorage.getItem("mid"),
           'leadId':localStorage.getItem("lid")
       })
     },
     getOpenTickets({ commit } = {}) {
-      axios.get("http://10.177.68.205:8090/supportAgent/getTicketList").then(
+      axios.get("http://172.16.20.161:8090/supportAgent/getTicketList").then(
         res => {
           commit("SET_OPEN_TICKETS", res.data)
         }
       )
     },
     getSupportAgents({ commit } = {}) {
-      axios.get("http://10.177.68.205:8090/supportAgent/getSAList").then(
+      axios.get("http://172.16.20.161:8090/supportAgent/getSAList").then(
         res => {
           commit("SET_SERVICE_AGENT", res.data)
         }
@@ -90,7 +90,7 @@ export default new Vuex.Store({
       // eslint-disable-next-line no-console
       //console.log(x+" "+y)
       // 
-      axios.post("http://10.177.68.205:8090/supportAgent/assignTicket",{
+      axios.post("http://172.16.20.161:8090/supportAgent/assignTicket",{
           'supportAgentId':y,
           'ticketId':x
       })
@@ -109,6 +109,19 @@ export default new Vuex.Store({
         }
       )
       localStorage.removeItem("leadid");
+    },
+    // eslint-disable-next-line no-unused-vars
+    registerMarketAgent({commit},{formData} ={}){
+        // eslint-disable-next-line no-unused-vars
+        // let data1={
+        //     'name':formData.name,
+        //     'emailAddress':formData.emailAddress,
+        //     'password':formData.password
+        // }
+        //window.console.log(data1)
+        // window.console.log(formData.name)
+        // window.console.log(formData.email)
+        // window.console.log(formData.pwd)
     }
   },
 
