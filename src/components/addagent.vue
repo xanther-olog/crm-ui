@@ -4,22 +4,36 @@
   <div class="login">
       <h1>Register here</h1>
       <br><br>
-<input type="text" placeholder="username">
-<br><br>
-<input type="email" placeholder="enter email">
-<br><br>
-<input type="text" placeholder="Mobile">
-<br><br>
-<input type="password" placeholder="password">
+<form name="maForm">
+        <input type="text" placeholder="username" name="username" v-model="username" required/>
+        <br />
+        <br />
+        <input type="email" placeholder="enter email" name="email" v-model="email" required/>
+        <br />
+        <br />
+        <input type="password" placeholder="password" name="pwd" v-model="pwd" required/>
+        <br>
+      </form>
 <br>
-<br>
-<button> REGISTER</button>
+<button @click="registerServiceAgent()"> REGISTER</button>
   </div>
 </div>
 </template>
 <script>
+import axios from 'axios';
 export default {
-    name:"addagent1"
+    name:"addagent1",
+    methods:{
+        registerServiceAgent(){
+            axios.post("http://172.16.20.121:8080/controller/register/",{
+                'name':this.username,
+                'emailAddress':this.email,
+                'password':this.pwd
+            }).then(function(response){
+                localStorage.setItem('serviceAgentUserId',response.data.data.userId)
+            })
+        }
+    }
 };
 </script>
 <style>

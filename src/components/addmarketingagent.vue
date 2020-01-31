@@ -7,13 +7,13 @@
       <br />
       <br />
       <form name="maForm" action="<IP>">
-        <input type="text" placeholder="username" name="username" v-model="username"/>
+        <input type="text" placeholder="username" name="username" v-model="username" required/>
         <br />
         <br />
-        <input type="email" placeholder="enter email" name="email" v-model="email"/>
+        <input type="email" placeholder="enter email" name="email" v-model="email" required/>
         <br />
         <br />
-        <input type="password" placeholder="password" name="pwd" v-model="pwd"/>
+        <input type="password" placeholder="password" name="pwd" v-model="pwd" required/>
         <br><div class="checkboxes">
         <input type="checkbox" name="Literature" value="Literature" v-model="checkedNames" />Literature
         <input type="checkbox" name="Technology" value="Technology" v-model="checkedNames" />Technology

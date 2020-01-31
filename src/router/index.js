@@ -33,6 +33,22 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/MarketingAgentDashboard.vue')
+  },
+  {
+    path: '/loginserviceagent',
+    name: 'loginserviceagent',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../views/LoginServiceAgent.vue')
+  },
+  {
+    path: '/loginmarketingagent',
+    name: 'loginmerchantagent',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../views/LoginMarketingAgent.vue')
   }
 
 
