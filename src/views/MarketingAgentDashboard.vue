@@ -25,6 +25,8 @@
       <h3>Lead Name: {{ leadkasaaman.leadName }}</h3>
       <h3>Lead email: {{ leadkasaaman.leadEmail }}</h3>
       <h3>Post Image/Video:</h3>
+      <input type="file" @change="onFileSelected($event)" />
+      <button @click="onUpload">Upload</button>
       <h3>Post Description:</h3>
     </div>
   </div>
@@ -32,7 +34,13 @@
 
 <script>
 import { mapGetters } from "vuex";
+import axios from "axios";
 export default {
+  data() {
+    return {
+      selectedFile: null
+    };
+  },
   computed: {
     ...mapGetters(["leadList1"]),
     ...mapGetters(["leadkasaaman"])
@@ -40,11 +48,26 @@ export default {
   created() {
     this.$store.dispatch("getLeadForMarketAgent", {});
   },
-  methods:{
-    onchange(event){
-      const data=event.target.value;
-      localStorage.setItem("leadid",data);
+  methods: {
+    onchange(event) {
+      const data = event.target.value;
+      localStorage.setItem("leadid", data);
       this.$store.dispatch("getLeadDetails");
+    },
+    onFileSelected(event) {
+      // eslint-disable-next-line no-console
+      console.log(event);
+      this.selectedFile = event.target.files[0];
+    },
+    onUpload() {
+      const fd = new FormData();
+      fd.append("image", this.selectedFile, this.selectedFile.name);
+      axios.post("API", fd,{onUploadProgress:uploadEvent=>{
+        window.console.log("Upload Progress: "+Math.round(uploadEvent.loaded/uploadEvent.total * 100)+"%")
+      }}).then(res => {
+        // eslint-disable-next-line no-console
+        console.log(res)
+      });
     }
   }
 };
