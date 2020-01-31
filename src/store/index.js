@@ -8,9 +8,10 @@ export default new Vuex.Store({
     categoryDetails: [],
     leadDetails: [],
     marketingAgentDetails: [],
-    listOfOpenTickets:[],
-    serviceAgentDetails:[],
-    leadList:[]
+    listOfOpenTickets: [],
+    serviceAgentDetails: [],
+    leadList: [],
+    leadKaDetail: {}
   },
   mutations: {
     SET_CATEGORY(state, value) {
@@ -22,15 +23,18 @@ export default new Vuex.Store({
     SET_MARKETING_AGENT(state, value) {
       state.marketingAgentDetails = value;
     },
-    SET_OPEN_TICKETS(state,value){
-      state.listOfOpenTickets=value;
+    SET_OPEN_TICKETS(state, value) {
+      state.listOfOpenTickets = value;
     },
-    SET_SERVICE_AGENT(state,value){
-      state.serviceAgentDetails=value;
+    SET_SERVICE_AGENT(state, value) {
+      state.serviceAgentDetails = value;
     },
-    SET_LEAD_LIST(state,value){
-      state.leadList=value;
+    SET_LEAD_LIST(state, value) {
+      state.leadList = value;
       //window.console.log(state.leadList)
+    },
+    GET_LEAD_DETAILS(state, value) {
+      state.leadKaDetail = value;
     }
   },
   actions: {
@@ -42,51 +46,59 @@ export default new Vuex.Store({
         }
       )
     },
-    sendId({commit}={}) {
-      axios.get('http://172.16.20.14:8085/api/subcategory/'+localStorage.getItem('id')).then(
+    sendId({ commit } = {}) {
+      axios.get('http://172.16.20.14:8085/api/subcategory/' + localStorage.getItem('id')).then(
         res => {
           commit('SET_LEAD', res.data.ll)
         },
         //localStorage.removeItem("id")
       )
     },
-    sendLid({commit}={}){
-      axios.get("http://172.16.20.14:8085/api/market/"+localStorage.getItem('lid')).then(
-        res=>{
-          commit('SET_MARKETING_AGENT',res.data.ll)
+    sendLid({ commit } = {}) {
+      axios.get("http://172.16.20.14:8085/api/market/" + localStorage.getItem('lid')).then(
+        res => {
+          commit('SET_MARKETING_AGENT', res.data.ll)
         },
         //localStorage.removeItem('lid')
       )
     },
-    send(){
-      axios.post("http://172.16.20.14:8085/api/submit/"+localStorage.getItem("id")+"/"+localStorage.getItem("lid")
-      +"/"+localStorage.getItem("mid"))
+    send() {
+      axios.post("http://172.16.20.14:8085/api/submit/" + localStorage.getItem("id") + "/" + localStorage.getItem("lid")
+        + "/" + localStorage.getItem("mid"))
     },
-    getOpenTickets({commit}={}){
+    getOpenTickets({ commit } = {}) {
       axios.get("http://172.16.20.14:8085/api/getopentickets").then(
-        res=>{   
-            commit("SET_OPEN_TICKETS",res.data.ll)
+        res => {
+          commit("SET_OPEN_TICKETS", res.data.ll)
         }
       )
     },
-    getSupportAgents({commit}={}){
+    getSupportAgents({ commit } = {}) {
       axios.get("http://172.16.20.14:8085/api/getsuportagents").then(
-        res=>{
-            commit("SET_SERVICE_AGENT",res.data.ll)
+        res => {
+          commit("SET_SERVICE_AGENT", res.data.ll)
         }
       )
     },
-    assignSupportAgents(){
-        let x=localStorage.getItem("ticketId");
-        let y=localStorage.getItem("supportAgentId")
-        axios.post("http://172.16.20.14:8085/api/assignsa/"+x+"/"+y)
+    assignSupportAgents() {
+      let x = localStorage.getItem("ticketId");
+      let y = localStorage.getItem("supportAgentId")
+      axios.post("http://172.16.20.14:8085/api/assignsa/" + x + "/" + y)
     },
-    getLeadForMarketAgent({commit}={}){
+    getLeadForMarketAgent({ commit } = {}) {
       window.console.log("getLeadForMarketAgent")
       axios.get('http://172.16.20.14:8085/api/subcategory/1').then(
         res => {
           commit('SET_LEAD_LIST', res.data.ll)
-        }).catch(err=>window.log.console(err))
+        }).catch(err => window.log.console(err))
+    },
+    getLeadDetails({ commit } = {}) {
+      axios.get('http://172.16.20.14:8085/api/allleads/' + localStorage.getItem("leadid")).then(
+        res => {
+          commit('GET_LEAD_DETAILS', res.data)
+        }
+      )
+      localStorage.removeItem("leadid");
     }
   },
 
@@ -97,20 +109,23 @@ export default new Vuex.Store({
     categories(state) {
       return state.categoryDetails;
     },
-    leads(state){
+    leads(state) {
       return state.leadDetails;
     },
-    marketagents(state){
+    marketagents(state) {
       return state.marketingAgentDetails;
     },
-    openTickets(state){
+    openTickets(state) {
       return state.listOfOpenTickets;
     },
-    serviceAgents(state){
+    serviceAgents(state) {
       return state.serviceAgentDetails;
     },
-    leadList1(state){
+    leadList1(state) {
       return state.leadList;
+    },
+    leadkasaaman(state) {
+      return state.leadKaDetail;
     }
   }
 })

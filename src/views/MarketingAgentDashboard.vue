@@ -11,7 +11,7 @@
       </ul>
     </div>
     <div class="leadsDiv">
-      <select>
+      <select @change="onchange($event)" class="select-css">
         <option value selected disabled>Choose here</option>
         <option
           v-for="l in leadList1"
@@ -21,12 +21,11 @@
       </select>
     </div>
     <div class="leadDetails">
-      <h3>Ticket ID: leadList1</h3>
-      <h3>Ticket source:</h3>
-      <h3>Post ID:</h3>
+      <h3>Lead ID: {{ leadkasaaman.leadId }}</h3>
+      <h3>Lead Name: {{ leadkasaaman.leadName }}</h3>
+      <h3>Lead email: {{ leadkasaaman.leadEmail }}</h3>
       <h3>Post Image/Video:</h3>
       <h3>Post Description:</h3>
-      <h3>Count of Dislikes:</h3>
     </div>
   </div>
 </template>
@@ -35,10 +34,18 @@
 import { mapGetters } from "vuex";
 export default {
   computed: {
-    ...mapGetters(["leadList1"])
+    ...mapGetters(["leadList1"]),
+    ...mapGetters(["leadkasaaman"])
   },
   created() {
     this.$store.dispatch("getLeadForMarketAgent", {});
+  },
+  methods:{
+    onchange(event){
+      const data=event.target.value;
+      localStorage.setItem("leadid",data);
+      this.$store.dispatch("getLeadDetails");
+    }
   }
 };
 </script>
