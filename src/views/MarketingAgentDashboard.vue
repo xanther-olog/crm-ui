@@ -3,7 +3,7 @@
     <div id="nav">
       <ul>
         <li id="assignma">
-          <a href="#" id="1" v-on:click="select($event)">My Leads</a>
+          <a href="#" id="1" v-on:click="select()">My Leads</a>
         </li>
         <li>
           <a href="#">Logout</a>
@@ -11,7 +11,7 @@
       </ul>
     </div>
     <div class="leadsDiv">
-      <select @change="onchange($event)" class="select-css">
+      <select @change="onchange()" class="select-css">
         <option value selected disabled>Choose here</option>
         <option
           v-for="l in leadList1"

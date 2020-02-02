@@ -16,7 +16,25 @@
   </div>
 </div>
 </template>
-
+<script>
+import axios from 'axios';
+export default {
+    methods:{
+        loginMarketingAgent(){
+            axios.post("http://172.16.20.121:8080/controller/login/",{
+                'emailAddress':this.email,
+                'password':this.pwd,
+                'channel':'CRM-MA',
+                'fcmToken':'null'
+            }).then(function (response) {
+                localStorage.setItem('accessTokenMA',response.data.data.accessToken)
+                
+            })
+            this.$router.push('/marketingagent')
+        }
+    }
+}
+</script>
 
 
 <style>

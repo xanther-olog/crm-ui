@@ -65,10 +65,11 @@ export default new Vuex.Store({
     send() {
       // axios.post("http://172.16.20.14:8085/api/submit/" + localStorage.getItem("id") + "/" + localStorage.getItem("lid")
       //   + "/" + localStorage.getItem("mid"))
-      axios.post("http://172.16.20.161:8090/marketingAgent/assignMarketAgent",{
-          'marketingAgentId':localStorage.getItem("mid"),
-          'leadId':localStorage.getItem("lid")
+      axios.post("http://172.16.20.161:8090/marketingAgent/assignMarketAgent", {
+        'marketingAgentId': localStorage.getItem("mid"),
+        'leadId': localStorage.getItem("lid")
       })
+      alert("Done!")
     },
     getOpenTickets({ commit } = {}) {
       axios.get("http://172.16.20.161:8090/supportAgent/getTicketList").then(
@@ -90,16 +91,18 @@ export default new Vuex.Store({
       // eslint-disable-next-line no-console
       //console.log(x+" "+y)
       // 
-      axios.post("http://172.16.20.161:8090/supportAgent/assignTicket",{
-          'supportAgentId':y,
-          'ticketId':x
+      axios.post("http://172.16.20.161:8090/supportAgent/assignTicket", {
+        'supportAgentId': y,
+        'ticketId': x
       })
+      alert('Ticket assigned to designated support agent!')
     },
     getLeadForMarketAgent({ commit } = {}) {
-      window.console.log("getLeadForMarketAgent")
-      axios.get('http://172.16.20.14:8085/api/subcategory/1').then(
+      //window.console.log(localStorage.getItem("accessTokenMA"))
+      axios.get('http://172.16.20.161:8090/marketingAgent/getLeadListByMarketAgentId/' + localStorage.getItem('accessTokenMA')
+      ).then(
         res => {
-          commit('SET_LEAD_LIST', res.data.ll)
+          commit('SET_LEAD_LIST', res.data)
         }).catch(err => window.log.console(err))
     },
     getLeadDetails({ commit } = {}) {
@@ -111,17 +114,44 @@ export default new Vuex.Store({
       localStorage.removeItem("leadid");
     },
     // eslint-disable-next-line no-unused-vars
-    registerMarketAgent({commit},{formData} ={}){
-        // eslint-disable-next-line no-unused-vars
-        // let data1={
-        //     'name':formData.name,
-        //     'emailAddress':formData.emailAddress,
-        //     'password':formData.password
-        // }
-        //window.console.log(data1)
-        // window.console.log(formData.name)
-        // window.console.log(formData.email)
-        // window.console.log(formData.pwd)
+    registerSA() {
+      axios.post('http://172.16.20.161:8090/supportAgent/addSupportAgent', {
+        'supportAgentId': localStorage.getItem('serviceAgentUserId'),
+        // 'supportAgentId':'hee hee hee',
+        'supportAgentName': localStorage.getItem('name'),
+        'supportAgentEmail': localStorage.getItem('email'),
+        'ticketsResolved': 0,
+        'ticketsPending': 0
+      })
+    },
+    register({ commit }, { params, success }) {
+      window.console.log(params.data);
+      fetch('http://172.16.20.121:8080/controller/register/', {
+        headers: {
+          "Content-Type": "application/json"
+        },
+        method: "POST",
+        body: JSON.stringify(params.data)
+      })
+        .then(res => {
+          return res.json()
+        })
+        .then(res => {
+          window.console.log(res)
+          localStorage.setItem('marketAgentUserId', res.data.userId)
+          localStorage.setItem('maEmail', res.data.emailAddress)
+          localStorage.setItem('maname', res.data.name)
+          success && success(res)
+        })
+      commit
+    },
+    registerMA({commit}, {params, success}) {
+      axios.post('http://172.16.20.161:8090/marketingAgent/addMarketAgent', params.data)
+      .then(res => {
+        window.console.log(res)
+        success && success(res)
+      })
+      commit
     }
   },
 

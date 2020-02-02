@@ -2,66 +2,95 @@
   <div>
     <h1>ADD MARKETING AGENT</h1>
     <div class="login">
-        <div class="register">
-      <h1>Register here</h1>
-      <br />
-      <br />
-      <form name="maForm" action="<IP>">
-        <input type="text" placeholder="username" name="username" v-model="username" required/>
+      <div class="register">
+        <h1>Register here</h1>
         <br />
         <br />
-        <input type="email" placeholder="enter email" name="email" v-model="email" required/>
-        <br />
-        <br />
-        <input type="password" placeholder="password" name="pwd" v-model="pwd" required/>
-        <br><div class="checkboxes">
-        <input type="checkbox" name="Literature" value="Literature" v-model="checkedNames" />Literature
-        <input type="checkbox" name="Technology" value="Technology" v-model="checkedNames" />Technology
-        <input type="checkbox" name="Lifestyle" value="Lifestyle" v-model="checkedNames" />Lifestyle
-        <input type="checkbox" name="Movies" value="Movies" v-model="checkedNames" />Movies
-        <input type="checkbox" name="Food" value="Food" v-model="checkedNames" />Food
-        <input type="checkbox" name="Sports" value="Sports" v-model="checkedNames" />Sports
-        </div>
-      </form>
-      <button @click="getAllSelectedValue">REGISTER</button>
-        </div>
+        <form name="maForm" action="<IP>">
+          <input type="text" placeholder="username" name="username" v-model="username" required />
+          <br />
+          <br />
+          <input type="email" placeholder="enter email" name="email" v-model="email" required />
+          <br />
+          <br />
+          <input type="password" placeholder="password" name="pwd" v-model="pwd" required />
+          <br />
+          <div class="checkboxes">
+            <input type="checkbox" name="Literature" value="Literature" v-model="checkedNames" />Literature
+            <input
+              type="checkbox"
+              name="Technology"
+              value="Technology"
+              v-model="checkedNames"
+            />Technology
+            <input
+              type="checkbox"
+              name="Lifestyle"
+              value="Lifestyle"
+              v-model="checkedNames"
+            />Lifestyle
+            <input type="checkbox" name="Movies" value="Movies" v-model="checkedNames" />Movies
+            <input type="checkbox" name="Food" value="Food" v-model="checkedNames" />Food
+            <input type="checkbox" name="Sports" value="Sports" v-model="checkedNames" />Sports
+          </div>
+        </form>
+        <button @click="getAllSelectedValue">REGISTER</button>
+      </div>
     </div>
   </div>
 </template>
 <script>
-import axios from 'axios';
+// import axios from 'axios';
 export default {
   name: "addmarketingagent1",
   data() {
     return {
-        checkedNames: []
-    }
+      checkedNames: []
+    };
   },
   methods: {
-      getAllSelectedValue(){
-          //window.console.log('checkedNames', this.checkedNames);
-        //   let formData={
-        //       name:this.username,
-        //       emailAddress:this.email,
-        //       password:this.pwd
-        //   }
-          //this.$store.dispatch('registerMarketAgent',{formData})
-            axios.post("http://172.16.20.121:8080/controller/register/",{
-                'name':this.username,
-                'emailAddress':this.email,
-                'password':this.pwd
-            }).then(function(response){
-                localStorage.setItem('marketAgentUserId',response.data.data.userId)
-            })
-            axios.post("http://172.16.20.161:8090/marketingAgent/addMarketAgent",{
-                'marketingAgentId':localStorage.getItem('marketingAgentUserId'),
-                'marketingAgentName':this.username,
-                'marketingAgentEmail':this.email,
-                'leadsResolved':0,
-                'leadsPending':0,
-                'category':this.checkedNames
-            })
-      }
+    registrationSuccess() {
+      window.console.log("registration success");
+    },
+    registerMASuccess() {
+      let marketingAgentId = localStorage.getItem("marketAgentUserId");
+      let marketingAgentName = localStorage.getItem("maname");
+      let marketingAgentEmail = localStorage.getItem("maEmail");
+      let leadsConverted = 0;
+      let leadsPending = 0;
+      let category = this.checkedNames;
+      let data = {
+        marketingAgentId: marketingAgentId,
+        marketingAgentName: marketingAgentName,
+        marketingAgentEmail: marketingAgentEmail,
+        leadsConverted: leadsConverted,
+        leadsPending: leadsPending,
+        category: category
+      };
+      this.$store.dispatch("registerMA", {
+        params: {
+          data: data
+        },
+        success: this.registrationSuccess
+      });
+    },
+    getAllSelectedValue() {
+      let name = this.username;
+      let emailAddress = this.email;
+      let password = this.pwd;
+      let data = {
+        name: name,
+        emailAddress: emailAddress,
+        password: password
+      };
+      window.console.log(data);
+      this.$store.dispatch("register", {
+        params: {
+          data: data
+        },
+        success: this.registerMASuccess
+      });
+    }
   }
 };
 </script>
@@ -76,7 +105,6 @@ export default {
   box-shadow: 5px 5px 5px 5px;
   border-radius: 10px;
   margin-top: 40px;
-  
 }
 input {
   width: 220px;
@@ -104,9 +132,8 @@ button {
   font: bold 15px arial, sans-serif;
   text-shadow: none;
 }
-.chechboxes{
-    display: flex;
-    flex-direction: row;
+.chechboxes {
+  display: flex;
+  flex-direction: row;
 }
-
 </style>

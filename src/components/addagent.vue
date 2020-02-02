@@ -23,17 +23,30 @@
 import axios from 'axios';
 export default {
     name:"addagent1",
+    data: function(){
+        return{
+            saId: ''
+        }
+    },
     methods:{
+        registerSASuccess(){
+            this.$store.dispatch("registerSA")
+        },
         registerServiceAgent(){
             axios.post("http://172.16.20.121:8080/controller/register/",{
                 'name':this.username,
                 'emailAddress':this.email,
                 'password':this.pwd
             }).then(function(response){
+                window.console.log(response),
                 localStorage.setItem('serviceAgentUserId',response.data.data.userId)
-            })
-        }
-    }
+                localStorage.setItem('name',response.data.data.name)
+                localStorage.setItem('email',response.data.data.emailAddress)
+                //this.saId = response.data.data.userId
+            }).then(this.registerSASuccess)
+            
+        },
+    },
 };
 </script>
 <style>

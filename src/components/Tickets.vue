@@ -15,7 +15,7 @@
     </div>
     <div class="supportAgents">
       <!-- <SupportAgents v-on:accept-support-agent="$emit('meaow',SupportAgents.saId)"/> -->
-      <p align="left">ID Name</p>
+      <!-- <p align="left">ID Name</p> -->
       <div v-for="s in serviceAgents" v-bind:key="s.supportAgentId" class="supportagent">
         <p align="left">
           {{ s.supportAgentId }}&nbsp;{{ s.supportAgentName }}
@@ -69,6 +69,8 @@ export default {
   color: #fff;
   border: none;
   padding: 5px, 9px;
+  width:38px;
+  height:35px;
   border-radius: 50%;
   cursor: pointer;
 }
