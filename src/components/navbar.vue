@@ -15,7 +15,7 @@
 
 <a @click="home()">Home</a>
       <a @click="ticketslist">My Tickets</a>
-      <a>Logout</a>
+      <a @click="logout()">Logout</a>
     </div>
     <!-- <div class="pend">
       <div  v-for="anu in numberdata" v-bind:key="anu.pendingtickets">
@@ -43,6 +43,10 @@ export default {
     },
     home: function() {
       this.$router.push("/Support");
+    },
+    logout(){
+        localStorage.removeItem("accessTokenSA")
+        window.location.replace("http://localhost:8080/loginserviceagent")
     }
   }
 }

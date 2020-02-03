@@ -62,7 +62,12 @@ export default {
     ...mapGetters(["leadkasaaman"])
   },
   created() {
-    this.$store.dispatch("getLeadForMarketAgent");
+    if(localStorage.getItem("accessTokenMA")==null){
+        window.location.replace("http://localhost:8080/loginmarketingagent")
+    }
+    else{
+      this.$store.dispatch("getLeadForMarketAgent");
+    }
   },
   methods: {
     onchange(event) {
@@ -103,7 +108,8 @@ export default {
             console.log(res.data)
         })
     },logout(){
-        setTimeout(function(){window.location.href='http://localhost:8080/loginmarketingagent'},1000);
+          localStorage.removeItem("accessTokenMA");
+          window.location.replace("http://localhost:8080/loginmarketingagent");
     }
   }
 };

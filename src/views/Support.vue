@@ -1,12 +1,9 @@
 <template>
   <div>
     <navbar></navbar>
-    <!-- <div class="headi">
-      <h1>hello..!</h1>
-    </div> -->
     <div class="pend">
-        <h3>Number of Resolved Tickets: {{ticketCounts.ticketsResolved}}</h3>
-        <h3>Number of Pending Tickets: {{ticketCounts.tickertsPending}}</h3>
+      <h3>Number of Resolved Tickets: {{ticketCounts.ticketsResolved}}</h3>
+      <h3>Number of Pending Tickets: {{ticketCounts.tickertsPending}}</h3>
     </div>
   </div>
 </template>
@@ -19,12 +16,21 @@ export default {
     navbar
   },
   created() {
-    this.$store.dispatch('resolved');
+    // this.$store.dispatch('resolved');
+    window.console.log(
+      "dscsdvsdvdsvs     " + localStorage.getItem("accessTokenSA")
+    );
+    if (localStorage.getItem("accessTokenSA") != null) {
+      window.location.replace("http://localhost:8080/loginserviceagent");
+      this.$store.dispatch("resolved");
+    } else {
+      window.location.replace("http://localhost:8080/loginserviceagent");
+    }
   },
   computed: {
     ...mapGetters(["numberdata"]),
-    ticketCounts(){
-        return this.numberdata;
+    ticketCounts() {
+      return this.numberdata;
     }
   },
   methods: {
@@ -51,7 +57,7 @@ h1 {
   margin-top: 5%;
 }
 h3:hover {
-  background-color:rgb(39, 41, 41);
-  color: aliceblue
+  background-color: rgb(39, 41, 41);
+  color: aliceblue;
 }
 </style>
