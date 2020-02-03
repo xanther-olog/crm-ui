@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>ADD MARKETING AGENT</h1>
-    <div class="login">
+    <div class="login1">
       <div class="register">
         <h1>Register here</h1>
         <br />
@@ -40,7 +40,7 @@
   </div>
 </template>
 <script>
-// import axios from 'axios';
+// import axios from ‘axios’;
 export default {
   name: "addmarketingagent1",
   data() {
@@ -50,7 +50,7 @@ export default {
   },
   methods: {
     registrationSuccess() {
-      window.console.log("registration success");
+      alert("Registration success!")
     },
     registerMASuccess() {
       let marketingAgentId = localStorage.getItem("marketAgentUserId");
@@ -94,23 +94,25 @@ export default {
   }
 };
 </script>
-<style>
-.login {
+<style scoped>
+.login1 {
   text-align: center;
   border: 2px solid black;
-  margin-left: 500px;
-  margin-right: 500px;
+  margin-left: auto;
+  margin-right: auto;
   padding-bottom: 30px;
-  background-color: bisque;
+  background-color: aliceblue;
   box-shadow: 5px 5px 5px 5px;
   border-radius: 10px;
   margin-top: 40px;
+  width: 600px;
 }
 input {
   width: 220px;
   padding: 0;
   height: 30px;
   position: relative;
+  margin: 10px;
   left: 0;
   outline: none;
   border: 1px solid #cdcdcd;
@@ -132,7 +134,7 @@ button {
   font: bold 15px arial, sans-serif;
   text-shadow: none;
 }
-.chechboxes {
+.checkboxes {
   display: flex;
   flex-direction: row;
 }

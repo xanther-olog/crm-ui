@@ -18,6 +18,7 @@
 </template>
 <script>
 import axios from 'axios';
+// import func from '../../vue-temp/vue-editor-bridge';
 export default {
     methods:{
         loginMarketingAgent(){
@@ -26,25 +27,31 @@ export default {
                 'password':this.pwd,
                 'channel':'CRM-MA',
                 'fcmToken':'null'
-            }).then(function (response) {
-                localStorage.setItem('accessTokenMA',response.data.data.accessToken)
-                
-            })
-            this.$router.push('/marketingagent')
+            }).then(function(response){
+            localStorage.setItem('accessTokenMA',response.data.data.accessToken)
+
+        })
+            // this.$router.push('/marketingagent')
+            setTimeout(function(){
+                window.location.href='http://localhost:8080/marketingagent';},2000);
+            
         }
     }
 }
 </script>
 
 
-<style>
+
+
+
+<style scoped>
 .login{
     text-align: center;
     border: 2px solid black;
     margin-left: 500px;
     margin-right: 500px;
     padding-bottom: 30px;
-    background-color:bisque;
+    background-color:aliceblue;
      box-shadow: 5px 5px 5px 5px;
     border-radius:10px;
     margin-top:40px;

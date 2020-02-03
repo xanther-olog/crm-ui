@@ -17,16 +17,40 @@
 </div>
 </template>
 
+<script>
+import axios from 'axios';
+export default {
+    
+ methods:{
+        loginServiceAgent(){
+            axios.post("http://172.16.20.121:8080/controller/login/",{
+                'emailAddress':this.email,
+                'password':this.pwd,
+                'channel':'CRM-SA',
+                'fcmToken':'null'
+            }).then(function(response){
+            localStorage.setItem('accessTokenSA',response.data.data.accessToken)
+            // this.$store.dispatch("loginWithSupportAgent")
+            setTimeout(function(){window.location.href='http://localhost:8080/support'},1000)
+
+        })
+        //   this.$store.dispatch("loginWithSupportAgent")  
+        }
+    }
 
 
-<style>
+}
+</script>
+
+
+<style scoped>
 .login{
     text-align: center;
     border: 2px solid black;
     margin-left: 500px;
     margin-right: 500px;
     padding-bottom: 30px;
-    background-color:bisque;
+    background-color:aliceblue;
      box-shadow: 5px 5px 5px 5px;
     border-radius:10px;
     margin-top:40px;

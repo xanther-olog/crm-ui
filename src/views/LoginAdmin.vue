@@ -1,28 +1,34 @@
 <template>
   <div id="main">
+    <div class="admin">
+    <h1>ADMIN DASHBOARD</h1>
+    </div>
     <div id="nav">
       <ul>
         <li id="assignma">
           <a href="#" id="1" v-on:click="select($event)">Assign marketing agents</a>
-        </li>
+        </li> 
         <li>
           <a href="#" id="2" v-on:click="select($event)">Assign tickets</a>
-        </li>
+        </li> 
         <li>
           <a href="#" id="3" v-on:click="select($event)">Add service agent</a>
         </li>
-        <li>
+        <li> 
           <a href="#" id="4" v-on:click="select($event)">Add marketing agent</a>
         </li>
-        <li>
+        <li> 
           <a href="#">Logout</a>
-        </li>
+        </li> 
 
-        <div></div>
-      </ul>
+        <div>
+
+
+        </div>
+       </ul> 
     </div>
     <!-- <categories1 />
-    <Tickets />-->
+    <Tickets /> -->
     <component v-bind:is="component" />
   </div>
 </template>
@@ -73,8 +79,27 @@ export default {
 
 
 <style scoped>
+
 #nav {
-  background-color: rgb(183, 219, 250);
+  /* background-color: rgb(248, 58, 58); */
+  /* background-color: skyblue;
+  display: block; */
+
+height: 100%;
+  width: 160px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  padding-top: 20px;
+  margin-top: 60px;
+
+}
+.admin{
+  background-color:aliceblue;
+margin-top:-16px;
 }
 div a {
   text-decoration: none;
@@ -111,6 +136,13 @@ ul li ul li a {
 }
 ul li ul li:hover {
   background: #666;
+}
+#nav a{
+padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
 }
 </style>
 

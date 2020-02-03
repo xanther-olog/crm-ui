@@ -1,66 +1,84 @@
 <template>
+
 <div>
-<h1>ADD SERVICE AGENT</h1>
-  <div class="login">
+    <h1>ADD SERVICE AGENT</h1>
+    <div class="login">
       <h1>Register here</h1>
-      <br><br>
-<form name="maForm">
-        <input type="text" placeholder="username" name="username" v-model="username" required/>
+      <br />
+      <br />
+      <form name="maForm">
+        <input type="text" placeholder="username" name="username" v-model="username" required />
         <br />
         <br />
-        <input type="email" placeholder="enter email" name="email" v-model="email" required/>
+        <input type="email" placeholder="enter email" name="email" v-model="email" required />
         <br />
         <br />
-        <input type="password" placeholder="password" name="pwd" v-model="pwd" required/>
-        <br>
+        <input type="password" placeholder="password" name="pwd" v-model="pwd" required />
+        <br />
       </form>
-<br>
-<button @click="registerServiceAgent()"> REGISTER</button>
+      <br />
+      <button @click="registerServiceAgent()">REGISTER</button>
+    </div>
   </div>
-</div>
+
+
+
+
 </template>
 <script>
-import axios from 'axios';
+
+
+import axios from "axios";
 export default {
-    name:"addagent1",
-    data: function(){
-        return{
-            saId: ''
-        }
+  name: "addagent1",
+  data: function() {
+    return {
+      saId: ""
+    };
+  },
+  methods: {
+    registerSASuccess() {
+      this.$store.dispatch("registerSA");
+      alert("Support agent registered!")
     },
-    methods:{
-        registerSASuccess(){
-            this.$store.dispatch("registerSA")
-        },
-        registerServiceAgent(){
-            axios.post("http://172.16.20.121:8080/controller/register/",{
-                'name':this.username,
-                'emailAddress':this.email,
-                'password':this.pwd
-            }).then(function(response){
-                window.console.log(response),
-                localStorage.setItem('serviceAgentUserId',response.data.data.userId)
-                localStorage.setItem('name',response.data.data.name)
-                localStorage.setItem('email',response.data.data.emailAddress)
-                //this.saId = response.data.data.userId
-            }).then(this.registerSASuccess)
-            
-        },
-    },
+    registerServiceAgent() {
+      axios
+        .post("http://172.16.20.121:8080/controller/register/", {
+          name: this.username,
+          emailAddress: this.email,
+          password: this.pwd
+        })
+        .then(function(response) {
+          window.console.log(response),
+            localStorage.setItem(
+              "serviceAgentUserId",
+              response.data.data.userId
+            );
+          localStorage.setItem("name", response.data.data.name);
+          localStorage.setItem("email", response.data.data.emailAddress);
+          //this.saId = response.data.data.userId
+        })
+        .then(this.registerSASuccess);
+    }
+  }
 };
+
 </script>
-<style>
-.login{
+<style scoped>
+.login4{
     text-align: center;
     border: 2px solid black;
     margin-left: 500px;
     margin-right: 500px;
     padding-bottom: 30px;
-    background-color:bisque;
-     box-shadow: 5px 5px 5px 5px;
+    background-color:aliceblue;
+    box-shadow: 5px 5px 5px 5px;
     border-radius:10px;
     margin-top:40px;
+    padding-top:100px;
+    padding-bottom:100px;
 }
+
 input{
     width: 220px;
      padding: 0;
@@ -87,4 +105,8 @@ width: 100px;
 font: bold 15px arial, sans-serif;
 text-shadow:none;
 }
+.register1{
+    margin-top:-41px;
+}
+
 </style>
