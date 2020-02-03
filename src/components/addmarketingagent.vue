@@ -54,8 +54,8 @@ export default {
     },
     registerMASuccess() {
       let marketingAgentId = localStorage.getItem("marketAgentUserId");
-      let marketingAgentName = localStorage.getItem("maname");
-      let marketingAgentEmail = localStorage.getItem("maEmail");
+      let marketingAgentName = this.username;
+      let marketingAgentEmail = this.email;
       let leadsConverted = 0;
       let leadsPending = 0;
       let category = this.checkedNames;
@@ -81,7 +81,8 @@ export default {
       let data = {
         name: name,
         emailAddress: emailAddress,
-        password: password
+        password: password,
+        role:"CRM-MA"
       };
       window.console.log(data);
       this.$store.dispatch("register", {

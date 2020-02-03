@@ -65,20 +65,20 @@ export default new Vuex.Store({
       )
     },
     registerSA() {
-      axios.post('http://172.16.20.161:8090/supportAgent/addSupportAgent', {
-        'supportAgentId': localStorage.getItem('serviceAgentUserId'),
-        // ‘supportAgentId’:‘hee hee hee’,
-        'supportAgentName': localStorage.getItem('name'),
-        'supportAgentEmail': localStorage.getItem('email'),
-        'ticketsResolved': 0,
-        'ticketsPending': 0
-      },
-      )
+      // axios.post('http://172.16.20.161:8090/supportAgent/addSupportAgent', {
+      //   'supportAgentId': localStorage.getItem('serviceAgentUserId'),
+      //   // ‘supportAgentId’:‘hee hee hee’,
+      //   'supportAgentName': localStorage.getItem('name'),
+      //   'supportAgentEmail': localStorage.getItem('email'),
+      //   'ticketsResolved': 0,
+      //   'ticketsPending': 0
+      // },
+      // )
     },
 
     register({ commit }, { params, success }) {
-      window.console.log(params.data);
-      fetch('http://172.16.20.121:8080/controller/register/', {
+      //window.console.log(params.data);
+      fetch('http://172.16.20.121:8080/CRMUserController/register/', {
         headers: {
           "Content-Type": "application/json"
         },
@@ -89,10 +89,10 @@ export default new Vuex.Store({
           return res.json()
         })
         .then(res => {
-          window.console.log(res)
-          localStorage.setItem('marketAgentUserId', res.data.userId)
-          localStorage.setItem('maEmail', res.data.emailAddress)
-          localStorage.setItem('maname', res.data.name)
+          window.console.log(res.data)
+          localStorage.setItem('marketAgentUserId', res.data)
+          // localStorage.setItem('maEmail', res.data.emailAddress)
+          // localStorage.setItem('maname', res.data.name)
           success && success(res)
         })
       commit

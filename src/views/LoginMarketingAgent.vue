@@ -24,18 +24,19 @@ export default {
   methods: {
     loginMarketingAgent() {
       axios
-        .post("http://172.16.20.121:8080/controller/login/", {
+        .post("http://172.16.20.121:8080/CRMUserController/login/", {
           emailAddress: this.email,
           password: this.pwd,
-          channel: "CRM-MA",
-          fcmToken: "null"
+          channel: "CRM",
+          fcmToken: ""
         })
         .then(function(response) {
-            if(response.data.statusCode==1000){
+            if(response.data.statusCode==1000 && response.data.data.role==="CRM-MA"){
+                window.console.log(response.data.data.role)
                 localStorage.setItem("accessTokenMA", response.data.data.accessToken);
                 window.location.replace("http://localhost:8080/marketingagent")
             }
-            else if(response.data.statusCode==800){
+            else{
                 alert("Incorrect ID/Password!")
             }
         });

@@ -24,16 +24,16 @@ export default {
   methods: {
     loginServiceAgent() {
       axios
-        .post("http://172.16.20.121:8080/controller/login/", {
+        .post("http://172.16.20.121:8080/CRMUserController/login/", {
           emailAddress: this.email,
           password: this.pwd,
-          channel: "CRM-SA",
-          fcmToken: "null"
+          channel: "CRM",
+          fcmToken: ""
         })
         .then(function(response) {
             if(response.data.statusCode==1000){
                 localStorage.setItem("accessTokenSA", response.data.data.accessToken);
-                window.location.replace("http://localhost:8080/support")
+                //window.location.replace("http://localhost:8080/support")
             }
             else if(response.data.statusCode==800){
                 alert("Incorrect ID/Password!")

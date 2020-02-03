@@ -38,25 +38,28 @@ export default {
   },
   methods: {
     registerSASuccess() {
-      this.$store.dispatch("registerSA");
+      axios.post('http://172.16.20.161:8090/supportAgent/addSupportAgent', {
+        'supportAgentId': localStorage.getItem('serviceAgentUserId'),
+        'supportAgentName': this.username,
+        'supportAgentEmail': this.email,
+        'ticketsResolved': 0,
+        'ticketsPending': 0
+      },
+      )
       alert("Support agent registered!")
     },
     registerServiceAgent() {
       axios
-        .post("http://172.16.20.121:8080/controller/register/", {
+        .post("http://172.16.20.121:8080/CRMUserController/register/", {
           name: this.username,
           emailAddress: this.email,
-          password: this.pwd
+          password: this.pwd,
+          role:"CRM-SA"
         })
         .then(function(response) {
-          window.console.log(response),
-            localStorage.setItem(
-              "serviceAgentUserId",
-              response.data.data.userId
-            );
-          localStorage.setItem("name", response.data.data.name);
-          localStorage.setItem("email", response.data.data.emailAddress);
-          //this.saId = response.data.data.userId
+          window.console.log("TESTING: "+response.data.data)
+          localStorage.setItem("serviceAgentUserId",response.data.data);
+          
         })
         .then(this.registerSASuccess);
     }
