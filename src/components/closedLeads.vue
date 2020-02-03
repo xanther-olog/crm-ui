@@ -3,14 +3,14 @@
     <div class="table">
       <table class="closed_leads">
         <tr>
-          <th>ID</th>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Category</th>
-          <th>Source</th>
-          <th>Created time</th>
-          <th>Updated time</th>
-          <th>Mail count</th>
+          <th><center>ID</center></th>
+          <th><center>Name</center></th>
+          <th><center>Email</center></th>
+          <th><center>Category</center></th>
+          <th><center>Source</center></th>
+          <th><center>Created time</center></th>
+          <th><center>Updated time</center></th>
+          <th><center>Mail count</center></th>
         </tr>
         <tr v-for="c in getClosedLeadsMapGetter" v-bind:key="c.leadId" class="lead_deets">
           <td>{{ c.leadId }}</td>
@@ -53,6 +53,7 @@ export default {
 .closed_leads tr:nth-child(even) {
   background-color: #f2f2f2;
 }
+.closed_leads tr:hover {background-color: #ddd;}
 .closed_leads th {
   padding-top: 12px;
   padding-bottom: 12px;

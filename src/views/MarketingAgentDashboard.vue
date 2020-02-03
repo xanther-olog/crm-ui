@@ -9,7 +9,7 @@
           <a href="#" id="2" v-on:click="select($event)">Closed leads</a>
         </li>
         <li>
-          <a href="#">Logout</a>
+          <a href="#" @click="logout()">Logout</a>
         </li>
       </ul>
     </div>
@@ -46,6 +46,10 @@ export default {
         else if(event.target.id==="2"){
             this.component=leads_closed;
         }
+    },
+    logout(){
+        localStorage.removeItem("accessTokenMA")
+        window.location.replace("http://localhost:8080/loginmarketingagent")
     }
   }
 };

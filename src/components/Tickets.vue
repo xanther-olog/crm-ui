@@ -14,11 +14,11 @@
       </div>
     </div>
     <div class="supportAgents">
-      <table class="d" border="1">
+      <table class="d">
         <tr>
-          <th>ID</th>
-          <th>Name</th>
-          <th>Action</th>
+          <th><center>ID</center></th>
+          <th><center>Name</center></th>
+          <th><center>Action</center></th>
         </tr>
         <tr v-for="s in serviceAgents" v-bind:key="s.supportAgentId" class="supportagent">
           <td>{{ s.supportAgentId}}</td>
@@ -121,9 +121,23 @@ export default {
 .supportAgents {
   margin-left: 200px;
 }
-
-table.d {
-  table-layout: fixed;
+.d {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
   width: 100%;
+  margin-top: 20px;
+}
+.d td, .d th{
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+.d tr:nth-child(even){background-color: #f2f2f2;}
+.d tr:hover {background-color: #ddd;}
+.d th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #444;
+  color: white;
 }
 </style>
