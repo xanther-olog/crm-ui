@@ -21,7 +21,7 @@ export default {
       "dscsdvsdvdsvs     " + localStorage.getItem("accessTokenSA")
     );
     if (localStorage.getItem("accessTokenSA") != null) {
-      window.location.replace("http://localhost:8080/loginserviceagent");
+      // window.location.replace("http://localhost:8080/loginserviceagent");
       this.$store.dispatch("resolved");
     } else {
       window.location.replace("http://localhost:8080/loginserviceagent");
