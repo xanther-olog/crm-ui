@@ -3,7 +3,7 @@
     <div id="nav">
       <ul>
         <li id="assignma">
-          <a href="#" id="1" v-on:click="select($event)">Open leads</a>
+          <a href="#" id="1" v-on:click="select($event)">Leads in progress</a>
         </li>
         <li>
           <a href="#" id="2" v-on:click="select($event)">Closed leads</a>

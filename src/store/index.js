@@ -16,7 +16,8 @@ export default new Vuex.Store({
     results: [],
     ticketlists: [],
     numberdata: [],
-    closedLeads:[]
+    closedLeads:[],
+    closedLeadsForServiceAgents:[]
   },
   mutations: {
     SET_CATEGORY(state, value) {
@@ -53,6 +54,9 @@ export default new Vuex.Store({
     },
     SET_CLOSED_LEADS(state,value){
       state.closedLeads=value;
+    },
+    GETCLOSEDLEADSFORSERVICEAGENT(state,value){
+      state.closedLeadsForServiceAgents=value;
     }
   },
   actions: {
@@ -112,7 +116,7 @@ export default new Vuex.Store({
           token: localStorage.getItem('accessTokenSA')
         }
       }
-      axios.get("http://172.16.20.161:8090/supportAgent/getTicketsBySAId/",auth)
+      axios.get("http://172.16.20.161:8090/supportAgent/getPendingTicketsBySAId/",auth)
         .then(res => {
           commit('setticketdetails', res.data)
           // console.log(res.data)
@@ -166,7 +170,7 @@ export default new Vuex.Store({
         'marketingAgentId': localStorage.getItem("mid"),
         'leadId': localStorage.getItem("lid")
       })
-      alert("DONE!")
+      //alert("DONE!")
     },
     getOpenTickets({ commit } = {}) {
       axios.get("http://172.16.20.161:8090/supportAgent/getTicketList").then(
@@ -203,7 +207,7 @@ export default new Vuex.Store({
         }
       }
       window.console.log(localStorage.getItem('accessTokenMA'))
-      axios.get('http://172.16.20.161:8090/marketingAgent/getLeadListByMarketAgentId',auth).then(res=>{
+      axios.get('http://172.16.20.161:8090/marketingAgent/getMyListByMarketAgentId',auth).then(res=>{
         commit('SET_LEAD_LIST',res.data)
     })
     },
@@ -224,6 +228,18 @@ export default new Vuex.Store({
         axios.get('http://172.16.20.161:8090/marketingAgent/getClosedLeads/',auth).then(res=>{
             commit('SET_CLOSED_LEADS',res.data)
         })
+    },
+    getClosedLeadsForServiceAgent({commit}={}){
+      const auth = {
+        headers: {
+          token: localStorage.getItem('accessTokenSA')
+        }
+      }
+
+      axios.get('http://172.16.20.161:8090/supportAgent/getResolvedTicketsBySAId/',auth).then(res=>{
+            commit('GETCLOSEDLEADSFORSERVICEAGENT',res.data)
+        })
+
     }
   },
 
@@ -264,6 +280,9 @@ export default new Vuex.Store({
     },
     getClosedLeadsMapGetter(state){
       return state.closedLeads;
+    },
+    getClosedLeadsServiceAgentMapGetter(state){
+      return state.closedLeadsForServiceAgents;
     }
 
   }

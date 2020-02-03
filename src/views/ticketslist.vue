@@ -24,7 +24,11 @@ export default {
     navbar
   },
   created() {
-    this.$store.dispatch("lists");
+    if (localStorage.getItem("accessTokenSA") == null) {
+      window.location.replace("http://localhost:8080/loginserviceagent");
+    } else {
+      this.$store.dispatch("lists");
+    }
   },
   computed: {
     ...mapGetters(["ticketlists"]),
@@ -36,7 +40,7 @@ export default {
     ticketslist: function(x) {
       // eslint-disable-next-line no-console
       localStorage.setItem("xyz", x);
-    //   this.$store.dispatch("getTicketDetails");
+      //   this.$store.dispatch("getTicketDetails");
       this.$router.push("/ticketdetails");
     }
   }
@@ -54,7 +58,7 @@ export default {
   padding: 50px;
   margin-left: 25%;
   margin-right: 25%;
-  margin-top: 2%;
+  margin-top: 10%;
   background-color: rgb(233, 233, 247);
 }
 </style>

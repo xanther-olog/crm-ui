@@ -1,7 +1,7 @@
 <template>
   <div class="nav_bar">
     <nav>
-      <h1>Support Agent DASHBOARD</h1>
+      <h1>Support Agent Dashboard</h1>
       <div class="main">
         
         <ul>
@@ -14,7 +14,8 @@
     <div class="sidenav">
 
 <a @click="home()">Home</a>
-      <a @click="ticketslist">My Tickets</a>
+      <a @click="ticketslist">Tickets in progress</a>
+      <a @click="closedTickets">Closed tickets </a>
       <a @click="logout()">Logout</a>
     </div>
     <!-- <div class="pend">
@@ -47,6 +48,9 @@ export default {
     logout(){
         localStorage.removeItem("accessTokenSA")
         window.location.replace("http://localhost:8080/loginserviceagent")
+    },
+    closedTickets(){
+        window.location.replace("http://localhost:8080/closedtickets")
     }
   }
 }

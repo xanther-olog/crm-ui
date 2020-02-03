@@ -11,12 +11,12 @@
       <h3>Count of Dislikes:</h3>
       {{ticketDetails.countOfDislike}}
       <h3>Comments:</h3>
-      <br/>
+      <br />
       <textarea rows="10" cols="30" v-model="comments" name="comments"></textarea>
       <br />
       <uploadimage></uploadimage>
       <!-- <button @click="(router.push )">Close</button> -->
-      <button name="closeLead" @click="closeTicket()"> CLOSE TICKET </button>
+      <button name="closeLead" @click="closeTicket()">CLOSE TICKET</button>
     </div>
     <navbar></navbar>
   </div>
@@ -26,7 +26,7 @@
 import navbar from "../components/navbar.vue";
 import uploadimage from "../components/image.vue";
 import { mapGetters } from "vuex";
-import axios from 'axios';
+import axios from "axios";
 export default {
   name: "ticketdetails",
   components: {
@@ -34,26 +34,33 @@ export default {
     uploadimage
   },
   created() {
-    this.$store.dispatch("details");
+    if (localStorage.getItem("accessTokenSA") == null) {
+      window.location.replace("http://localhost:8080/loginserviceagent");
+    } else {
+      this.$store.dispatch("details");
+    }
   },
   computed: {
     ...mapGetters(["results"]),
     ticketDetails() {
-        return this.results;
+      return this.results;
     }
   },
-  methods:{
-      closeTicket(){
-          axios.post("http://172.16.20.161:8090/supportAgent/uploadComments" , {
-              ticketId: localStorage.getItem("xyz"),
-              comments: this.comments,
-              images: localStorage.getItem('imgUrl'),
-              video: "null",
-              docs: "null"
-          })
-          axios.get("http://172.16.20.161:8090/supportAgent/closeTicket/"+localStorage.getItem("xyz"))
-          alert("Current ticket has been closed!")
-      }
+  methods: {
+    closeTicket() {
+      axios.post("http://172.16.20.161:8090/supportAgent/uploadComments", {
+        ticketId: localStorage.getItem("xyz"),
+        comments: this.comments,
+        images: localStorage.getItem("imgUrl"),
+        video: "null",
+        docs: "null"
+      });
+      axios.get(
+        "http://172.16.20.161:8090/supportAgent/closeTicket/" +
+          localStorage.getItem("xyz")
+      );
+      alert("Current ticket has been closed!");
+    }
   }
 };
 </script>
@@ -68,10 +75,8 @@ export default {
   margin-right: 25%;
   margin-top: 2%;
   background-color: rgb(233, 233, 247);
-
 }
 h1 {
   text-align: center;
 }
-
 </style>

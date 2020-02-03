@@ -31,11 +31,11 @@ export default {
           fcmToken: ""
         })
         .then(function(response) {
-            if(response.data.statusCode==1000){
+            if(response.data.statusCode==1000 && response.data.data.role==="CRM-SA"){
                 localStorage.setItem("accessTokenSA", response.data.data.accessToken);
-                //window.location.replace("http://localhost:8080/support")
+                window.location.replace("http://localhost:8080/support")
             }
-            else if(response.data.statusCode==800){
+            else{
                 alert("Incorrect ID/Password!")
             }
         });

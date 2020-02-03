@@ -17,9 +17,7 @@ export default {
   },
   created() {
     // this.$store.dispatch('resolved');
-    window.console.log(
-      "dscsdvsdvdsvs     " + localStorage.getItem("accessTokenSA")
-    );
+    
     if (localStorage.getItem("accessTokenSA") != null) {
       // window.location.replace("http://localhost:8080/loginserviceagent");
       this.$store.dispatch("resolved");

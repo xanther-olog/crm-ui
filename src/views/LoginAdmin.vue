@@ -18,7 +18,7 @@
           <a href="#" id="4" v-on:click="select($event)">Add marketing agent</a>
         </li>
         <li> 
-          <a href="#">Logout</a>
+          <a href="#" @click="logout()">Logout</a>
         </li> 
 
         <div>
@@ -65,12 +65,19 @@ export default {
       else if(event.target.id ==="4"){
         this.component=addmarketingagent1;
       }
+    },
+    logout(){
+        localStorage.removeItem("isAdminLoggedIn")
+        window.location.replace("http://localhost:8080/loginasadmin")
     }
   },
   created() {
-    this.$store.dispatch("getCategoryDetails", {
-      success: this.CategoryDetailsRecieved
-    });
+    // this.$store.dispatch("getCategoryDetails", {
+    //   success: this.CategoryDetailsRecieved
+    // });
+    if(localStorage.getItem("isAdminLoggedIn")==null){
+        window.location.replace("http://localhost:8080/loginasadmin")
+    }
   }
 };
 </script>

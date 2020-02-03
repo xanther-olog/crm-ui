@@ -2,11 +2,10 @@
   <div>
     <h1>ADMIN LOGIN</h1>
     <div class="login">
-      <h1>Login here</h1>
       <br />
       <br />
       <form name="maForm">
-        <input type="email" placeholder="enter email" name="email" v-model="email" />
+        <input type="text" placeholder="enter username" name="username" v-model="username" />
         <br />
         <br />
         <input type="password" placeholder="password" name="pwd" v-model="pwd" />
@@ -19,26 +18,16 @@
 </template>
 
 <script>
-import axios from "axios";
 export default {
     
 methods: {
     loginAdmin() {
-      axios
-        .post("http://172.16.20.121:8080/controller/login", {
-          emailAddress: this.email,
-          password: this.pwd,
-          fcmToken: "null"
-        })
-        .then(function(response) {
-            if(response.data.statusCode==1000){
-                localStorage.setItem("accessTokenADMIN", response.data.data.accessToken);
-                window.location.replace("http://localhost:8080/adminlogin")
-            }
-            else if(response.data.statusCode==800){
-                alert("Incorrect ID/Password!")
-            }
-        });
+        if(this.username==="admin" && this.pwd==="admin"){
+            localStorage.setItem("isAdminLoggedIn","true")
+            window.location.replace("http://localhost:8080/adminlogin")
+        }else{
+            alert("Invalid credentials!");
+        }
     }
   }
 
