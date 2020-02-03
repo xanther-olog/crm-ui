@@ -19,9 +19,10 @@
 
 <script>
 import leads_open from "@/components/OpenLeads.vue"
+import leads_closed from "@/components/closedLeads.vue"
 export default {
   components: {
-    leads_open
+    leads_open,leads_closed
   },
   data() {
     return {
@@ -43,7 +44,7 @@ export default {
             this.component=leads_open;
         }
         else if(event.target.id==="2"){
-            window.console.log("closed leads")
+            this.component=leads_closed;
         }
     }
   }
@@ -97,7 +98,7 @@ export default {
 }
 
 #nav {
-  background-color: aliceblue;
+  background-color: rgb(175, 213, 247);
 }
 div a {
   text-decoration: none;

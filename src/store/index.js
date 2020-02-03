@@ -15,7 +15,8 @@ export default new Vuex.Store({
     leadKaDetail: [],
     results: [],
     ticketlists: [],
-    numberdata: []
+    numberdata: [],
+    closedLeads:[]
   },
   mutations: {
     SET_CATEGORY(state, value) {
@@ -50,6 +51,9 @@ export default new Vuex.Store({
     setresandpen(state, value) {
       state.numberdata = value
     },
+    SET_CLOSED_LEADS(state,value){
+      state.closedLeads=value;
+    }
   },
   actions: {
 
@@ -210,18 +214,17 @@ export default new Vuex.Store({
           commit('GET_LEAD_DETAILS',res.data)
       })
     },
-    // loginWithSupportAgent({commit}={}){
-    //     const auth = {
-    //         headers:{
-    //             token: localStorage.getItem('accessTokenSA')
-    //         }
-    //     }
-    //     axios.get('http://172.16.20.161:8090/supportAgent/',auth).then(res=>{
-    //         // eslint-disable-next-line no-console
-    //         console.log(res.data)
-    //         commit
-    //     })
-    // }
+    // eslint-disable-next-line no-unused-vars
+    getClosedLeads({ commit }={}){
+      const auth = {
+        headers: {
+          token: localStorage.getItem('accessTokenMA')
+        }
+      }
+        axios.get('http://172.16.20.161:8090/marketingAgent/getClosedLeads/',auth).then(res=>{
+            commit('SET_CLOSED_LEADS',res.data)
+        })
+    }
   },
 
   modules: {
@@ -258,6 +261,9 @@ export default new Vuex.Store({
     },
     numberdata(state) {
       return state.numberdata;
+    },
+    getClosedLeadsMapGetter(state){
+      return state.closedLeads;
     }
 
   }
